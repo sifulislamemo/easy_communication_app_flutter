@@ -9,11 +9,26 @@ class StorageMethods {
   final FirebaseAuth _auth = FirebaseAuth.instance;
 
   //add firebase storage
+  // Future<String> uploadImageToStorage(
+  //     String childname, Uint8List file, bool isPost) async {
+  //   Reference ref =
+  //       _storage.ref().child(childname).child(_auth.currentUser!.uid);
+  //   UploadTask uploadTask = ref.putData(file);
+  //   TaskSnapshot snap = await uploadTask;
+  //   String downloadUrl = await snap.ref.getDownloadURL();
+  //   return downloadUrl;
+  // }
+
   Future<String> uploadImageToStorage(
-      String childname, Uint8List file, bool isPost) async {
+      String childName, Uint8List file, bool isPost) async {
+    // creating location to our firebase storage
+
     Reference ref =
-        _storage.ref().child(childname).child(_auth.currentUser!.uid);
+        _storage.ref().child(childName).child(_auth.currentUser!.uid);
+
+    // putting in uint8list format -> Upload task like a future but not future
     UploadTask uploadTask = ref.putData(file);
+
     TaskSnapshot snapshot = await uploadTask;
     String downloadUrl = await snapshot.ref.getDownloadURL();
     return downloadUrl;
